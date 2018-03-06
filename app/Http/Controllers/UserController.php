@@ -18,7 +18,6 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
-
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 401);
         }
@@ -26,7 +25,7 @@ class UserController extends Controller
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
-            return response()->json(['success your token is' => $success], 200);
+            return response()->json(['success'=>$success], 200);
         }
         else{
             return response()->json(['error'=>'Unauthorised'], 401);
