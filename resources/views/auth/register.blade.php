@@ -11,20 +11,6 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="form-group row">
-                            <label for="ucid" class="col-md-4 col-form-label text-md-right">UCID</label>
-
-                            <div class="col-md-6">
-                                <input id="ucid" type="text" class="form-control{{ $errors->has('ucid') ? ' is-invalid' : '' }}" name="ucid" value="{{ old('ucid') }}" required autofocus>
-
-                                @if ($errors->has('ucid'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('ucid') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                             <div class="col-md-6">
@@ -33,6 +19,33 @@
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="job_title" class="col-md-4 col-form-label text-md-right">Job Title</label>
+
+                            <div class="col-md-6">
+                                <input id="job_title" type="text" class="form-control{{ $errors->has('job_title') ? ' is-invalid' : '' }}" name="job_title"  required autofocus>
+
+                                @if ($errors->has('job_title'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('job_title') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                         <div class="form-group row">
+                            <label for="ucid" class="col-md-4 col-form-label text-md-right">UCID</label>
+
+                            <div class="col-md-6">
+                                <input id="ucid" type="text" class="form-control{{ $errors->has('ucid') ? ' is-invalid' : '' }}" name="ucid" value="{{ old('ucid') }}" required autofocus>
+
+                                @if ($errors->has('ucid'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('ucid') }}</strong>
                                     </span>
                                 @endif
                             </div>

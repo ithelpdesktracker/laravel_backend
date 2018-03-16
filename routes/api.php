@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('userLogin','UserController@userLogin');
 Route::post('userRegister','UserController@userRegister');
 Route::get('userDetails','UserController@userDetails');
+Route::post('/{user}/userDestroy','UserController@userDestroy');

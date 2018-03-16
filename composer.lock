@@ -877,20 +877,20 @@
         },
         {
             "name": "laravel/passport",
-            "version": "v5.0.0",
+            "version": "v5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "a04b9193054a8a7c50c26ff4f0519d3f7b5f5a30"
+                "reference": "7239e8cdbca9d7f24be40461fe2abc26583adaa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/a04b9193054a8a7c50c26ff4f0519d3f7b5f5a30",
-                "reference": "a04b9193054a8a7c50c26ff4f0519d3f7b5f5a30",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/7239e8cdbca9d7f24be40461fe2abc26583adaa2",
+                "reference": "7239e8cdbca9d7f24be40461fe2abc26583adaa2",
                 "shasum": ""
             },
             "require": {
-                "firebase/php-jwt": "~3.0|~4.0",
+                "firebase/php-jwt": "~3.0|~4.0|~5.0",
                 "guzzlehttp/guzzle": "~6.0",
                 "illuminate/auth": "~5.6",
                 "illuminate/console": "~5.6",
@@ -942,7 +942,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2018-01-29 14:30:22"
+            "time": "2018-03-06 14:21:38"
         },
         {
             "name": "laravel/tinker",
