@@ -20,3 +20,8 @@ Route::post('userLogin','UserController@userLogin');
 Route::post('userRegister','UserController@userRegister');
 Route::get('userDetails','UserController@userDetails');
 Route::post('/{user}/userDestroy','UserController@userDestroy');
+
+
+//Issue Api
+Route::get('Issue', 'IssueController@index');
+Route::get('Issue/{issue}', 'IssueController@show');
