@@ -59,6 +59,90 @@ class IssueController extends Controller
 
     }
 
+    public function addIssue(Request $request)
+    {
+
+        $insertId = DB::table('tickets')->insertGetId([
+            'iss_type' => $request['iss_type'],
+            'status' => $request['status'],
+            'building_id' => $request['building_id'],
+            'room_num' => $request['room_num'],
+            'cust_ucid' => $request['cust_ucid'],
+            'iss_description' => $request['iss_description'],
+            'front_desk_tech' => $request['front_desk_tech']
+            ]);
+
+        DB::table('tech_issue_assignments')->insert(
+            ['tech_ucid' => $request['tech_ucid'], 'issue_id'=> $insertId]);
+
+        return response()->json('success', 200);
+    }
+
+
+    public function updateIssue(Request $request)
+    {
+
+       if($request['status'] =='closed' or $request['status'] =='resolved' or $request['status'] == 'unresolved' ){
+           DB::table('tickets')
+               ->where('iss_id', $request['iss_id'])
+               ->update(['status' => $request['status']]);
+
+       }
+       elseif($request['status']== '')
+       {
+
+       }
+       else{
+           return  response()->json('error not a valid status', 400);
+       }
+
+        if($request['iss_type'] != '')
+        {
+            DB::table('tickets')
+                ->where('iss_id', $request['iss_id'])
+                ->update(['iss_type' => $request['iss_type']]);
+        }
+
+        if($request['building_id'] != '')
+        {
+            DB::table('tickets')
+                ->where('iss_id', $request['iss_id'])
+                ->update(['building_id' => $request['building_id']]);
+        }
+
+        if($request['room_num'] != '')
+        {
+            DB::table('tickets')
+                ->where('iss_id', $request['iss_id'])
+                ->update(['room_num' => $request['room_num']]);
+        }
+
+        if($request['cust_ucid'] != '')
+        {
+            DB::table('tickets')
+                ->where('iss_id', $request['iss_id'])
+                ->update(['cust_ucid' => $request['cust_ucid']]);
+        }
+
+        if($request['iss_description'] != '')
+        {
+            DB::table('tickets')
+                ->where('iss_id', $request['iss_id'])
+                ->update(['iss_description' => $request['iss_description']]);
+
+        }
+
+        if($request['front_desk_tech'] != '')
+        {
+            DB::table('tickets')
+                ->where('iss_id', $request['iss_id'])
+                ->update(['front_desk_tech' => $request['front_desk_tech']]);
+        }
+
+            return response()->json('success', 200);
+
+    }
+
 
 
 }
