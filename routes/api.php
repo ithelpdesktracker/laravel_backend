@@ -30,8 +30,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function() {
 
 });
 //--------------------------------------------------------------------------
-
-
+//Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function() {
+//});
 
 //Issue Api
 Route::get('Issue', 'IssueController@index');
