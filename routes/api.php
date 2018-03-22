@@ -13,13 +13,24 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Authentication Routes.
+//-------------------------------------------------------------------------
 Route::post('userLogin','UserController@userLogin');
-Route::post('userRegister','UserController@userRegister');
-Route::get('userDetails','UserController@userDetails');
-Route::post('/{user}/userDestroy','UserController@userDestroy');
+
+   Route::post('userRegister','UserController@userRegister');
+   Route::get('userDetails','UserController@userDetails');
+   Route::post('/{user}/userDestroy','UserController@userDestroy');
+
+
+Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function() {
+    //all other api routes goes here 
+   Route::post('userRegister','UserController@userRegister');
+   Route::get('userDetails','UserController@userDetails');
+   Route::post('/{user}/userDestroy','UserController@userDestroy');
+
+});
+//--------------------------------------------------------------------------
+
 
 
 //Issue Api

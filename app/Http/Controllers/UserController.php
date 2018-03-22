@@ -32,12 +32,10 @@ class UserController extends Controller
             return response()->json(['error'=>'Unauthorised'], 401);
         }
     }
-
+  
     public function userRegister(Request $request)
-    {
-        $domain = "njit.edu";     
-        $validator = Validator::make($request->all(), [
-        
+    {             
+        $validator = Validator::make($request->all(), [        
             'ucid' => 'required|unique:users,ucid',
             'job_title'=>'required',
             'name' => 'required',
@@ -49,31 +47,30 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors'=>$validator->errors()],401);
         }
-
+// set validated info as input for the create user function
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        
+        $input['api_token'] = str_random(60);       
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
+        $success['api_token'] =$user->api_token;
         $success['name'] =  $user->name;
         $success['job_title'] =$user->job_title;
         return response()->json(['success'=>$success], 200);
     }
+    //--------------------------------------------------------------------------------------------
     public function userDestroy($id)
-    {
-    // to delete user inpput the ucid and email
-    //request for deleting will need the users job_title, and  ucid to delete
-      
+    {     
        $user = User::find($id);
        $user->delete();
-       return response()->json(['success'=> $user],200);
-              
+       return response()->json(['Deleted' => $user],200); 
+      
+                   
     }
 
     public function userDetails()
     {
       // function will just get all user ID,Email and UCID
-        $users = User::Select( 'ucid','email','id')->get();
+        $users = User::Select( 'ucid','email','id','api_token')->get();
         return response()->json(['success' => $users], 200);
     }
 }
