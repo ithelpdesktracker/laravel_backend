@@ -36,3 +36,5 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function() {
 //Issue Api
 Route::get('Issue', 'IssueController@index');
 Route::get('Issue/{issue}', 'IssueController@show');
+Route::post('addIssue', 'IssueController@addIssue');
+Route::patch('updateIssue/{iss_id}', 'IssueController@updateIssue');
