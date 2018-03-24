@@ -61,7 +61,7 @@ class IssueController extends Controller
 
     public function addIssue(Request $request)
     {
-
+         
         $insertId = DB::table('tickets')->insertGetId([
             'iss_type' => $request['iss_type'],
             'status' => $request['status'],
