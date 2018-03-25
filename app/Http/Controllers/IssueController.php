@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Issue;
 use Illuminate\Support\Facades\DB;
+use Validator;
 
 
 class IssueController extends Controller
@@ -62,6 +63,22 @@ class IssueController extends Controller
     public function addIssue(Request $request)
     {
 
+        $validator = Validator::make($request->all(), [
+            'iss_type' => 'required',
+            'status'=>'required',
+            'building_id' => 'required',
+            'room_num' => 'required',
+            'cust_ucid' => 'required',
+            'iss_description' => 'required',
+            'front_desk_tech'=>'required'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()],401);
+        }
+
+
+
         $insertId = DB::table('tickets')->insertGetId([
             'iss_type' => $request['iss_type'],
             'status' => $request['status'],
@@ -81,6 +98,22 @@ class IssueController extends Controller
 
     public function updateIssue(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'iss_type' => 'required',
+            'status'=>'required',
+            'building_id' => 'required',
+            'room_num' => 'required',
+            'cust_ucid' => 'required',
+            'iss_description' => 'required',
+            'front_desk_tech'=>'required'
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()],401);
+        }
+
+
+
 
        if($request['status'] =='closed' or $request['status'] =='resolved' or $request['status'] == 'unresolved' ){
            DB::table('tickets')
