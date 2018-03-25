@@ -12,28 +12,27 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Authentication Routes.
+// Auth Routes.
 //-------------------------------------------------------------------------
-Route::post('userLogin','UserController@userLogin');
 
-   Route::post('userRegister','UserController@userRegister');
-   Route::get('userDetails','UserController@userDetails');
-   Route::post('/{user}/userDestroy','UserController@userDestroy');
+Route::post('userLogin'  ,'UserController@userLogin');
+Route::get ('userDetails','UserController@userDetails');
+Route::post('userRegister','UserController@userRegister');
+Route::get('myDetails','UserController@myDetails');
+Route::post('/{user}/userDestroy','UserController@userDestroy');
 
-
-Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function() {
-    //all other api routes goes here 
-   Route::post('userRegister','UserController@userRegister');
-   Route::get('userDetails','UserController@userDetails');
-   Route::post('/{user}/userDestroy','UserController@userDestroy');
-
-});
+//API_token groups.
 //--------------------------------------------------------------------------
-//Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function() {
-//});
+Route::group(['middleware' => 'auth:api'], function(){
+//Route::get ('userDetails','UserController@userDetails');
+});
 
-//Issue Api
+
+
+
+
+//Issue API Routes
+//--------------------------------------------------------------------------
 Route::get('Issue', 'IssueController@index');
 Route::get('Issue/{issue}', 'IssueController@show');
 Route::post('addIssue', 'IssueController@addIssue');

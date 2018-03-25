@@ -78,7 +78,6 @@ class IssueController extends Controller
         }
 
 
-
         $insertId = DB::table('tickets')->insertGetId([
             'iss_type' => $request['iss_type'],
             'status' => $request['status'],

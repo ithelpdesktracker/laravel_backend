@@ -27,7 +27,9 @@ class UserController extends Controller
             $user = Auth::user();
             $success['ucid']=$user->ucid;
             $success['job_title']=$user->job_title;
-            $success['api_token'] =  $user->createToken('MyApp')->accessToken;
+            $success['api_token'] =  $user->createToken('ticketing')->accessToken;
+           // $user->api_token=$success['api_token'];
+           // $user->save();
             return response()->json(['success'=>$success], 200);
         }
         else{
@@ -64,9 +66,12 @@ class UserController extends Controller
     {     
        $user = User::find($id);
        $user->delete();
-       return response()->json(['Deleted' => $user],200); 
-      
-                   
+       return response()->json(['Deleted' => $user],200);                        
+    }
+    Public function myDetails()
+    {
+      $user=Auth::User();
+      return response()->json(['success'=>$user],200);
     }
 
     public function userDetails()
@@ -75,5 +80,6 @@ class UserController extends Controller
         $users = User::Select( 'ucid','email','id','api_token')->get();
         return response()->json(['success' => $users], 200);
     }
+  
 }
 
