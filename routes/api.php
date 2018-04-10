@@ -22,11 +22,14 @@ Route::post('userLogin'  ,'UserController@userLogin');
 //API_token groups.
 //--------------------------------------------------------------------------
 Route::group(['middleware' => 'auth:api'], function(){
+//Route::group(['middleware' => 'cors'], function(){
   Route::get ('userDetails','UserController@userDetails');
   Route::post('userRegister','UserController@userRegister');
   Route::get('myDetails','UserController@myDetails');
+  Route::post('addIssue', 'IssueController@addIssue');
   Route::post('/{user}/userDestroy','UserController@userDestroy');
   Route::get('Issue', 'IssueController@index');
+  Route::patch('updateIssue/{iss_id}', 'IssueController@updateIssue');
 });
 
 
@@ -36,6 +39,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 //Issue API Routes
 //--------------------------------------------------------------------------
 
-Route::get('Issue/{issue}', 'IssueController@show');
-Route::post('addIssue', 'IssueController@addIssue');
-Route::patch('updateIssue/{iss_id}', 'IssueController@updateIssue');
+//Route::get('Issue/{issue}', 'IssueController@show');
+ // Route::get('Issue', 'IssueController@index');
+ // Route::patch('updateIssue/{iss_id}', 'IssueController@updateIssue');
+ // Route::post('addIssue', 'IssueController@addIssue');

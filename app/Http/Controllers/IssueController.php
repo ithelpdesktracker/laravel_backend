@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Issue;
+use Mail;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
 
 class IssueController extends Controller
 {
+  public $send;
 
     public function index()
     {
@@ -62,8 +64,8 @@ class IssueController extends Controller
 
     public function addIssue(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
+              $data = $request;
+             $validator = Validator::make($request->all(), [
             'iss_type' => 'required',
             'status'=>'required',
             'building_id' => 'required',
@@ -90,10 +92,38 @@ class IssueController extends Controller
 
         DB::table('tech_issue_assignments')->insert(
             ['tech_ucid' => $request['tech_ucid'], 'issue_id'=> $insertId]);
+            
+        $this->send($data);
+             
+             
 
         return response()->json('success', 200);
     }
+    //--------------------------------------------------------------------------------------------------------------------------------
+    
+    public function send(Request $request)
+    {
+       $iss_type = $request['iss_type'];
+       $status = $request['status'];
+       $building_id = $request['building_id'];
+       $room_num = $request['room_num'];
+       $cust_ucid = $request['cust_ucid'];
+       $iss_description = $request['iss_description'];
+       $front_desk_tech = $request['front_desk_tech'];
+         $send = $request['tech_ucid'] . '@njit.edu';
+              Mail::send('email',   ['building_name' => $building_id, 'room_num' => $room_num, 'iss_type'=>$iss_type,'iss_description'=>$iss_description], function               ($message) use ($send)
+              {
+      
+                  $message->from('mtss.ticketing@gmail.com', 'NJIT Help Desk');
+      
+                  $message->to($send);
+      
+              });
 
+        return response()->json(['message' => 'Request completed']);
+    }
+    
+    //---------------------------------------------------------------------------------------------------------------------------
 
     public function updateIssue(Request $request)
     {
@@ -174,6 +204,7 @@ class IssueController extends Controller
             return response()->json('success', 200);
 
     }
+    
 
 
 
