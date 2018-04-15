@@ -12,25 +12,21 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-// Auth Routes.
+// Auth Routes / API token groups
 //-------------------------------------------------------------------------
 
 Route::post('userLogin'  ,'UserController@userLogin');
-//Route::get ('userDetails','UserController@userDetails');
-
-
-//API_token groups.
-//--------------------------------------------------------------------------
-Route::group(['middleware' => 'auth:api'], function(){
-//Route::group(['middleware' => 'cors'], function(){
-  Route::get ('userDetails','UserController@userDetails');
-  Route::post('userRegister','UserController@userRegister');
-  Route::get('myDetails','UserController@myDetails');
-  Route::post('addIssue', 'IssueController@addIssue');
-  Route::post('/{user}/userDestroy','UserController@userDestroy');
-  Route::get('Issue', 'IssueController@index');
-  Route::patch('updateIssue/{iss_id}', 'IssueController@updateIssue');
-});
+Route::group(['middleware' => 'auth:api'], function()
+  {
+  
+    Route::get ('userDetails','UserController@userDetails');
+    Route::post('userRegister','UserController@userRegister');
+    Route::get('myDetails','UserController@myDetails');
+    Route::post('addIssue', 'IssueController@addIssue');
+    Route::post('/{user}/userDestroy','UserController@userDestroy');
+   // Route::get('Issue', 'IssueController@index');
+    Route::patch('updateIssue/{iss_id}', 'IssueController@updateIssue');
+  });
 
 
 
@@ -40,6 +36,6 @@ Route::group(['middleware' => 'auth:api'], function(){
 //--------------------------------------------------------------------------
 
 //Route::get('Issue/{issue}', 'IssueController@show');
- // Route::get('Issue', 'IssueController@index');
+ Route::get('Issue', 'IssueController@index');
  // Route::patch('updateIssue/{iss_id}', 'IssueController@updateIssue');
  // Route::post('addIssue', 'IssueController@addIssue');

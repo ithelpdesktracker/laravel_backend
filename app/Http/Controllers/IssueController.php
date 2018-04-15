@@ -120,7 +120,7 @@ class IssueController extends Controller
       
               });
 
-        return response()->json(['message' => 'Request completed']);
+        return response()->json(['message' => 'Email Sent']);
     }
     
     //---------------------------------------------------------------------------------------------------------------------------
