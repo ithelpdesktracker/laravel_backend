@@ -150,7 +150,7 @@ class IssueController extends Controller
                ->update(['status' => $request['status']]);
 
        }
-       elseif($request['status']== '')
+       elseif($request['status']== 'n/a')
        {
 
        }
@@ -158,35 +158,35 @@ class IssueController extends Controller
            return  response()->json('error not a valid status', 400);
        }
 
-        if($request['iss_type'] != '')
+        if($request['iss_type'] != 'n/a')
         {
             DB::table('tickets')
                 ->where('iss_id', $request['iss_id'])
                 ->update(['iss_type' => $request['iss_type']]);
         }
 
-        if($request['building_id'] != '')
+        if($request['building_id'] != 'n/a')
         {
             DB::table('tickets')
                 ->where('iss_id', $request['iss_id'])
                 ->update(['building_id' => $request['building_id']]);
         }
 
-        if($request['room_num'] != '')
+        if($request['room_num'] != 'n/a')
         {
             DB::table('tickets')
                 ->where('iss_id', $request['iss_id'])
                 ->update(['room_num' => $request['room_num']]);
         }
 
-        if($request['cust_ucid'] != '')
+        if($request['cust_ucid'] != 'n/a')
         {
             DB::table('tickets')
                 ->where('iss_id', $request['iss_id'])
                 ->update(['cust_ucid' => $request['cust_ucid']]);
         }
 
-        if($request['iss_description'] != '')
+        if($request['iss_description'] != 'n/a')
         {
             DB::table('tickets')
                 ->where('iss_id', $request['iss_id'])
@@ -194,7 +194,7 @@ class IssueController extends Controller
 
         }
 
-        if($request['front_desk_tech'] != '')
+        if($request['front_desk_tech'] != 'n/a')
         {
             DB::table('tickets')
                 ->where('iss_id', $request['iss_id'])
