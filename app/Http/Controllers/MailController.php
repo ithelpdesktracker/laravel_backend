@@ -26,13 +26,13 @@ class mail extends Controller
         ['building_name' => $building_id, 'room_num' => $room_num, 'iss_type'=>$iss_type,'iss_description'=>$iss_description], function ($message)
         use($send)
         {
-            $message->from('mtss.ticketing@gmail.com', 'Christian Nwamba');
+            $message->from('mtss.ticketing@gmail.com', 'NJIT');
             $message->to($send);
         });
         return response()->json(['message' => 'Request completed']);
     }
 //-----------------------------------------------------------------------------------------------------------
-    public function sendNewticket(Request $request)
+    public function sendUpdate(Request $request)
     {   
     }
 }

@@ -15,7 +15,10 @@ use Illuminate\Http\Request;
 // Auth Routes / API token groups
 //-------------------------------------------------------------------------
 
-Route::post('userLogin'  ,'UserController@userLogin');
+Route::post('userLogin','UserController@userLogin');
+
+Route::get('dashOne','DashboardController@dashOne');
+
 Route::group(['middleware' => 'auth:api'], function()
   {
   
