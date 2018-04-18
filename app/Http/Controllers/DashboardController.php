@@ -15,19 +15,24 @@ class DashboardController extends Controller
     public function dashOne()
     {
     
-      $request=DB::select('tech_issue_assignments.tech_ucid','tickets.status')
-      		->addSelect(DB::raw('count(tickets.status) as total'))
+          $request=DB::table('tech_issue_assignments')
+          ->Select("tech_issue_assignments.tech_ucid","tickets.status", DB::raw("count(tickets.status) as Total"))
       		->from('tech_issue_assignments')
       		->rightjoin('tickets', function($join) {
-      			$join->on('tech_issue_assignments.issue_id', 'tickets.iss_id');
+      			$join->on('tech_issue_assignments.issue_id','=', 'tickets.iss_id');
       			})
       		->groupBy('tech_issue_assignments.tech_ucid')
       		->groupBy('tickets.status')
       		->get();
-         
-        return response()->json(['success'=>$request], 200);
-    
-    
+
+        return response()->json([$request], 200);
+
+    }
+    public function unresolved()
+    {
+    //convert this query
+    //select count(status) as Total_Unresolved from tickets where status ='unresolved';
+
     
     }
 }
