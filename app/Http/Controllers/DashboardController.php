@@ -33,6 +33,15 @@ class DashboardController extends Controller
     //convert this query
     //select count(status) as Total_Unresolved from tickets where status ='unresolved';
 
+        $request = DB::table('tickets')
+            ->Select(DB::raw('count(status) as Total_Unresolved'))
+            ->from('tickets')
+            ->where('status', '=', 'unresolved')
+            ->get();
+
+
+        return response()->json([$request], 200);
+
     
     }
 }

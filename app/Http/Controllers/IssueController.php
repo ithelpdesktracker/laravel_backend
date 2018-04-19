@@ -15,25 +15,18 @@ class IssueController extends Controller
 
     public function index()
     {
-
-        //return DB::table('tickets')
-        //   ->select('iss_id','iss_type','status','room_num','cust_ucid','iss_description','front_desk_tech','building_id','tech_ucid')
-        // ->join('tech_issue_assignments','issue_id', '=', 'iss_id')
-        //->get();
-
+        //Query DB and return all issue and techs assigned
         $query = DB::table('tickets')
             ->Select('iss_id','iss_type','status','room_num','cust_ucid','iss_description','front_desk_tech','building_id',DB::raw("(group_concat(tech_ucid SEPARATOR ' ' )) as 'tech_ucid'"))
             ->join('tech_issue_assignments','issue_id', '=', 'iss_id')
             ->groupby('iss_id')
             ->get();
-        //return response()->json(['success'=>$query],200);
         return $query;
-
     }
 
     public function show(Issue $issue)
     {
-        //get data from DB about specified issue.
+        //get data from DB about specified issue by ID and then return it
         $test =DB::table('tickets')
             ->join('tech_issue_assignments', 'issue_id', '=', 'iss_id')
             ->select('issue_id','iss_type','status','room_num','cust_ucid','iss_description','front_desk_tech','building_id','tech_ucid')
@@ -42,12 +35,13 @@ class IssueController extends Controller
 
         $test= json_decode($test,true);
 
+        //Formats DB response allowing us to put the assigned techs into an array
         foreach($test as $is)
         {
             $tech_array[] = $is['tech_ucid'];
 
         }
-
+        //returns techs in an array
         $final['issue_id'] = $issue['iss_id'];
         $final['iss_type'] = $test[0]['iss_type'];
         $final['status'] = $test[0]['status'];
@@ -64,9 +58,11 @@ class IssueController extends Controller
 
     public function addIssue(Request $request)
     {
-              $data = $request;
-             $validator = Validator::make($request->all(), [
-            'iss_type' => 'required',
+        $data = $request;
+
+        //Validator for auth system.
+        $validator = Validator::make($request->all(),
+            ['iss_type' => 'required',
             'status'=>'required',
             'building_id' => 'required',
             'room_num' => 'required',
@@ -74,12 +70,13 @@ class IssueController extends Controller
             'iss_description' => 'required',
             'front_desk_tech'=>'required'
         ]);
+
         if ($validator->fails())
         {
             return response()->json(['errors'=>$validator->errors()],401);
         }
 
-
+        //inserts new issue into db and then returns the ID number for request
         $insertId = DB::table('tickets')->insertGetId([
             'iss_type' => $request['iss_type'],
             'status' => $request['status'],
@@ -89,13 +86,11 @@ class IssueController extends Controller
             'iss_description' => $request['iss_description'],
             'front_desk_tech' => $request['front_desk_tech']
             ]);
-
+        //Takes ID number from request and then adds the assigned tech to the tech_issue_assignment table.
         DB::table('tech_issue_assignments')->insert(
             ['tech_ucid' => $request['tech_ucid'], 'issue_id'=> $insertId]);
             
         $this->send($data);
-             
-             
 
         return response()->json('success', 200);
     }
@@ -127,6 +122,7 @@ class IssueController extends Controller
 
     public function updateIssue(Request $request)
     {
+        //This functions checks the request send for fields that need to be updated an n/a means the field is left alone
         $validator = Validator::make($request->all(), [
             'iss_type' => 'required',
             'status'=>'required',
@@ -140,8 +136,6 @@ class IssueController extends Controller
         {
             return response()->json(['errors'=>$validator->errors()],401);
         }
-
-
 
 
        if($request['status'] =='closed' or $request['status'] =='resolved' or $request['status'] == 'unresolved' ){
@@ -204,9 +198,6 @@ class IssueController extends Controller
             return response()->json('success', 200);
 
     }
-    
-
-
 
 }
 
