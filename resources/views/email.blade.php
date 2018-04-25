@@ -326,7 +326,7 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td>
-                                                                            <a href="mailto:mtss.ticketing@gmail.com?subject=%7BISSUENUMBER%7D-RESOLVED" target="_blank">Resolved</a>
+                                                                            <a href="mailto:mtss.ticketing@gmail.com?subject={{$iss_id}}-RESOLVED" target="_blank">Resolved</a>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -337,7 +337,7 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td>
-                                                                            <a href="mailto:mtss.ticketing@gmail.com?subject=%7BISSUENUMBER%7D-UNRESOLVED" target="_blank">Unresolved</a>
+                                                                            <a href="mailto:mtss.ticketing@gmail.com?subject={{$iss_id}}-UNRESOLVED" target="_blank">Unresolved</a>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>

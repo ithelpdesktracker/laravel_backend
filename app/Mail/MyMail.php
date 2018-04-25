@@ -21,6 +21,7 @@ class MyMail extends Mailable
     public $iss_type;
     public $iss_description;
     public $cust_ucid;
+    public $iss_id;
     public function __construct()
     {
         //
