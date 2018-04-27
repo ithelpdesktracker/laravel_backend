@@ -18,8 +18,12 @@ use Illuminate\Http\Request;
 Route::post('userLogin','UserController@userLogin');
 
 Route::get('dashOne','DashboardController@dashOne');
+
 Route::get('unresolved','DashboardController@unresolved');
 Route::get('sendUpdate','MailController@sendUpdate');
+
+Route::get('dashTwo','DashboardController@unresolved');
+
 
 Route::group(['middleware' => 'auth:api'], function()
   {
