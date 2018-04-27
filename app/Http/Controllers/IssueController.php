@@ -190,7 +190,7 @@ class IssueController extends Controller
         return response()->json('success', 200);
 
     }
-
+//----------------------------------------------------------------------------------------------------
     public function getBuildingName(int $request)
     {
         $query = DB::table('buildings')->
@@ -202,7 +202,7 @@ class IssueController extends Controller
         return $query[0]['building_name'];
 
     }
-
+//------------------------------------------------------------------------------------------------------------
 
     public function convertIssueType(string $request)
     {
@@ -239,7 +239,55 @@ class IssueController extends Controller
         return null;
 
     }
+//------------------------------------------------------------------------------------------------------------------------
 
+    public function scopeIssueCreation(Request $request)
+    {
+
+        if($request['requestor_title']=='admin')
+        {
+
+            $this->addIssue($request);
+        }
+        elseif($request['requestor_title']=='staff')
+        {
+
+            $this->addIssue($request);
+
+        }
+        elseif($request['requestor_title']=='tech')
+        {
+
+            $this->addIssue($request);
+
+        }
+        else return response()->json('UNAUTHORIZED', 401);
+
+    }
+//------------------------------------------------------------------------------------------------------------
+    public function scopeIssueUpdate(Request $request)
+    {
+
+        if($request['requestor_title']=='admin')
+        {
+
+            $this->updateIssue($request);
+        }
+        elseif($request['requestor_title']=='staff')
+        {
+
+            $this->updateIssue($request);
+
+        }
+        elseif($request['requestor_title']=='tech')
+        {
+
+            $this->updateIssue($request);
+
+        }
+        else return response()->json('UNAUTHORIZED', 401);
+
+    }
 
 
 }
