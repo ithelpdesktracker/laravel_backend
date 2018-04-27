@@ -85,6 +85,28 @@ class UserController extends Controller
         $users = User::Select( 'ucid','email','id','api_token')->get();
         return response()->json(['success' => $users], 200);
     }
-  
-}
 
+//-------------------------------------------------------------------------------------------------------------
+    public function scopeUserCreation(Request $request)
+    {
+
+        if($request['requestor_title']=='admin')
+        {
+
+            $this->userRegister($request);
+        }
+        elseif($request['requestor_title']=='staff')
+        {
+
+            if($request['job_title']=='tech'){
+
+                $this->userRegister($request);
+            }
+
+        }
+        else return response()->json('UNAUTHORIZED', 401);
+
+    }
+
+
+}
